@@ -23,23 +23,19 @@
     "test": "npm run jshint && npm run mocha"
   },
   "dependencies": {
-    "lodash": "^3.10.0",
-    "template-string": "^1.0.0"
+    "microdash": "~1",
+    "template-string": "~1"
   },
   "devDependencies": {
     "chai": "^2.3.0",
     "jshint": "^2.8.0",
     "mocha": "^2.2.5",
     "nowdoc": "^1.0.0",
-    "sinon-chai": "^2.7.0"
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
   },
   "engines": {
     "node": ">=0.6"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/asmblah/transpiler/raw/master/MIT-LICENSE.txt"
-    }
-  ]
+  "license": "MIT"
 }

@@ -9,7 +9,7 @@
 
 'use strict';
 
-var _ = require('lodash'),
+var _ = require('microdash'),
     expect = require('chai').expect,
     sinon = require('sinon'),
     Transpiler = require('../../src/Transpiler');
