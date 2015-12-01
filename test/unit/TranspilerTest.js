@@ -16,6 +16,49 @@ var _ = require('microdash'),
 
 describe('Transpiler', function () {
     describe('transpile()', function () {
+        it('should support overriding the transpile of node types', function () {
+            var transpilerSpec = {
+                    nodes: {
+                        'EXPR': function (node, transpile) {
+                            return transpile(node.left) + ' ' + node.operator + ' ' + transpile(node.right);
+                        },
+                        'OPERAND': function (node) {
+                            return node.value;
+                        }
+                    }
+                },
+                transpiler = new Transpiler(transpilerSpec);
+
+            expect(
+                transpiler.transpile(
+                    {
+                        name: 'EXPR',
+                        left: {
+                            name: 'OPERAND',
+                            value: 'leftNode'
+                        },
+                        operator: '+',
+                        right: {
+                            name: 'OPERAND',
+                            value: 'rightNode'
+                        }
+                    },
+                    null,
+                    {
+                        nodes: {
+                            'OPERAND': function (node, transpile, context, original) {
+                                if (node.value === 'leftNode') {
+                                    return 'modify(' + original(node) + ')';
+                                }
+
+                                return original(node);
+                            }
+                        }
+                    }
+                )
+            ).to.equal('modify(leftNode) + rightNode');
+        });
+
         describe('when using transpiler spec #1', function () {
             var transpiler,
                 transpilerSpec;
